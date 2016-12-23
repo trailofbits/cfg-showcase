@@ -1,3 +1,6 @@
+#define WINVER 0x0A00
+#define _WIN32_WINNT 0x0A00
+
 #include <cstdio>
 #include <cstdlib>
 #include <cstdint>
@@ -6,9 +9,9 @@
 #include <windows.h>
 #include <psapi.h>
 
-// Definining these constants since I can't find ntmmapi.h 
-// referenced in the docs in the Win10 SDK
-#define CFG_CALL_TARGET_VALID (0x00000001)
+// To set a target as invalid, we just need to ensure
+// the CFG_CALL_TARGET_VALID bit is not defined, which this will
+// do as it clears all flags bits
 #define CFG_CALL_TARGET_INVALID (0x00000000)
 
 using namespace std;
