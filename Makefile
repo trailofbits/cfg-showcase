@@ -3,8 +3,11 @@ CFGFLAG=/guard:cf
 CFLAGS=/W4 /nologo /Zi /EHsc
 LINKFLAGS=/link mincore.lib
 
-all: cfg_vcall.exe cfg_icall.exe cfg_valid_targets.exe no_cfg_vcall.exe no_cfg_icall.exe no_cfg_valid_targets.exe
+all: cfg_guard_ignore.exe cfg_vcall.exe cfg_icall.exe cfg_valid_targets.exe no_cfg_vcall.exe no_cfg_icall.exe no_cfg_valid_targets.exe no_cfg_guard_ignore.exe
 	  
+cfg_guard_ignore.exe: cfg_guard_ignore.cpp
+	 $(CC) $(CFLAGS) $(CFGFLAG) /Fe$@  $** $(LINKFLAGS) $(CFGFLAG)
+
 cfg_vcall.exe: cfg_vcall.cpp
 	 $(CC) $(CFLAGS) $(CFGFLAG) /Fe$@  $** $(LINKFLAGS) $(CFGFLAG)
 
@@ -21,6 +24,9 @@ no_cfg_valid_targets.exe: cfg_valid_targets.cpp
 	 $(CC) $(CFLAGS) /Fe$@  $** $(LINKFLAGS)
 
 no_cfg_vcall.exe: cfg_vcall.cpp
+	 $(CC) $(CFLAGS) /Fe$@  $** $(LINKFLAGS)
+
+no_cfg_guard_ignore.exe: cfg_guard_ignore.cpp
 	 $(CC) $(CFLAGS) /Fe$@  $** $(LINKFLAGS)
 
 clean:

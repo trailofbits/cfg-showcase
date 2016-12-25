@@ -13,6 +13,7 @@ Each example builds two binaries, one with CFG (e.g. `cfg_icall.exe`) and one wi
 * **cfg_icall** demonstrates control flow integrity of indirect calls. The example binary accepts a single command line argument (valid values are 0-3, but try invalid values with both binaries!). The command line argument shows different aspects of indirect call protection, or lack thereof.
 * **cfg_vcall** shows an example of CFI applied to virtual function calls. This example demonstrates how CFI would protect against a type confusion or similar attack. Included in the example is a bad cast from one class to another unrelated class and simulation of a fully attacker controlled object.
 * **cfg_valid_targets**  is like the **cfg_icall** example but uses the [SetProcessValidCallTargets API](<https://msdn.microsoft.com/en-us/library/windows/desktop/dn934202(v=vs.85).aspx>) to remove functions from the valid targets list.
+* **cfg_guard_ignore** shows the use of [__declspec(guard(ignore))](<https://github.com/Microsoft/ChakraCore/blob/master/lib/Backend/JnHelperMethod.cpp#L164-L168>) to disable CFG for indirect calls inside a specific method.
 
 # Requirements
 
@@ -28,16 +29,12 @@ Start up a "VS2015 x64 Native Tools Command Prompt" and build via `nmake all`. T
      Microsoft (R) Program Maintenance Utility Version 14.00.24210.0
      Copyright (C) Microsoft Corporation.  All rights reserved.
      
-             cl.exe /W4 /nologo /Zi /EHsc /guard:cf /Fecfg_vcall.exe  cfg_vcall.cpp /link mincore.lib /guard:cf
-     cfg_vcall.cpp
-             cl.exe /W4 /nologo /Zi /EHsc /guard:cf /Fecfg_icall.exe  cfg_icall.cpp /link mincore.lib /guard:cf
-     cfg_icall.cpp
-             cl.exe /W4 /nologo /Zi /EHsc /guard:cf /Fecfg_valid_targets.exe  cfg_valid_targets.cpp /link mincore.lib /guard:cf
-     cfg_valid_targets.cpp
-             cl.exe /W4 /nologo /Zi /EHsc /Feno_cfg_vcall.exe  cfg_vcall.cpp /link mincore.lib
-     cfg_vcall.cpp
-             cl.exe /W4 /nologo /Zi /EHsc /Feno_cfg_icall.exe  cfg_icall.cpp /link mincore.lib
-     cfg_icall.cpp
-             cl.exe /W4 /nologo /Zi /EHsc /Feno_cfg_valid_targets.exe  cfg_valid_targets.cpp /link mincore.lib
-     cfg_valid_targets.cpp
+             cl.exe /W4 /nologo /Zi /EHsc /guard:cf /Fecfg_guard_ignore.exe  cfg_guard_ignore.cpp /link mincore.lib /guard:cf cfg_guard_ignore.cpp
+             cl.exe /W4 /nologo /Zi /EHsc /guard:cf /Fecfg_vcall.exe  cfg_vcall.cpp /link mincore.lib /guard:cf cfg_vcall.cpp
+             cl.exe /W4 /nologo /Zi /EHsc /guard:cf /Fecfg_icall.exe  cfg_icall.cpp /link mincore.lib /guard:cf cfg_icall.cpp
+             cl.exe /W4 /nologo /Zi /EHsc /guard:cf /Fecfg_valid_targets.exe  cfg_valid_targets.cpp /link mincore.lib /guard:cf cfg_valid_targets.cpp
+             cl.exe /W4 /nologo /Zi /EHsc /Feno_cfg_vcall.exe  cfg_vcall.cpp /link mincore.lib cfg_vcall.cpp
+             cl.exe /W4 /nologo /Zi /EHsc /Feno_cfg_icall.exe  cfg_icall.cpp /link mincore.lib cfg_icall.cpp
+             cl.exe /W4 /nologo /Zi /EHsc /Feno_cfg_valid_targets.exe  cfg_valid_targets.cpp /link mincore.lib cfg_valid_targets.cpp
+             cl.exe /W4 /nologo /Zi /EHsc /Feno_cfg_guard_ignore.exe  cfg_guard_ignore.cpp /link mincore.lib cfg_guard_ignore.cpp
 
