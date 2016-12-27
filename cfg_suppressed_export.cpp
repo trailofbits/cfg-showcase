@@ -7,6 +7,10 @@
 
 using namespace std;
 
+// XXX: This DLL *must* be built in Release mode for 
+// __declspec(guard(suppress)) to suppress exports.
+// The compiler directive has no effect in Debug mode.
+
 // Use CFG to prevent this export from
 // being called indirectly, via __declspec(guard(suppress))
 extern "C" __declspec(dllexport) __declspec(guard(suppress)) void sensitive_function(int arg) {
@@ -16,7 +20,7 @@ extern "C" __declspec(dllexport) __declspec(guard(suppress)) void sensitive_func
 }
 
 // have a normal, callable export that will 
-// call the "senstive" code
+// call the "senstive" code to show the sensitive function is callable
 extern "C" __declspec(dllexport) void normal_function(int arg) {
     printf("In %s; going to call sensitive function\n", __FUNCTION__);
     sensitive_function(arg);
