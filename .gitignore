@@ -2,3 +2,6 @@
 *.ilk
 *.obj
 *.exe
+*.dll
+*.exp
+*.lib
