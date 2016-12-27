@@ -2,11 +2,11 @@
 
 [Control Flow Guard](<https://msdn.microsoft.com/en-us/library/windows/desktop/mt637065(v=vs.85).aspx>) (CFG) is Microsoft's implementation of [control flow integrity](https://www.microsoft.com/en-us/research/publication/control-flow-integrity/) in Visual Studio 2015. Control flow integrity (CFI) is an exploit mitigation like stack cookies, DEP, and ASLR. Like other exploit mitigations, the goal of CFI is to prevent bugs from turning into exploits. CFI works by reducing the ability of an attacker to redirect program execution to an attacker controlled destination.
 
-We have created samples with specially crafted bugs to showcase Control Flow Guard's CFI implementation. These examples are an accompaniment to [our blog post about Control Flow Guard](TODO:URL). We also have a blog post about [clang's control flow integrity implementation](https://blog.trailofbits.com/2016/10/17/lets-talk-about-cfi-clang-edition/) and [the accompanying set of examples](https://github.com/trailofbits/clang-cfi-showcase).
+We have created samples with specially crafted bugs to showcase Control Flow Guard's CFI implementation. These examples are an accompaniment to [our blog post about Control Flow Guard](http://blog.trailofbits.com/2016/12/27/lets-talk-about-cfi-microsoft-edition/). We also have a blog post about [clang's control flow integrity implementation](https://blog.trailofbits.com/2016/10/17/lets-talk-about-cfi-clang-edition/) and [the accompanying set of examples](https://github.com/trailofbits/clang-cfi-showcase).
 
 The bugs in these examples are not statically identified by the compiler, but are detected at runtime via CFI. Where possible, we simulate potential malicious behavior that occurs without CFI protections.
 
-Each example builds two binaries, one with CFG (e.g. `cfg_icall.exe`) and one without CFG (e.g. `no_cfg_icall.exe`).
+Each example builds two binaries: one with CFG (e.g. `cfg_icall.exe`) and one without CFG (e.g. `no_cfg_icall.exe`).
 
 # CFG Examples
 
